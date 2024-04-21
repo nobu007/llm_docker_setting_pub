@@ -1,0 +1,74 @@
+version: "3"
+
+services:
+  desktop-xrdp:
+    build:
+      context: .
+      dockerfile: Dockerfile.desktop
+      args:
+        USER: ${USER}
+        USER_ID: 1010
+        GROUP_ID: 1010
+        BASE_IMAGE: yama07/docker-ubuntu-lxde:22.04-xrdp_ja
+    image: open_interpreter_docker_desktop_xrdp
+    entrypoint: ["true"] # should not up service
+
+  xrdp:
+    container_name: xrdp
+    image: open_interpreter_docker_desktop_xrdp
+    depends_on:
+      - desktop-xrdp
+    ports:
+      - 3389:3389
+    environment:
+      - USER=$USER
+      - PASSWD=your_password
+
+  open-interpreter-xrdp:
+    container_name: open-interpreter-xrdp
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        USER: ${USER}
+        USER_ID: 1010
+        GROUP_ID: 1010
+    depends_on:
+      - xrdp
+    ports:
+      - 6079:6079
+      - 8000:8000
+    environment:
+      - USER=$USER
+      - PASSWD=your_password
+      - ANTHROPIC_API_KEY=your_anthropic_api_key
+    entrypoint: ["true"] # should not up service
+    tty: true
+    stdin_open: true
+
+  open-interpreter-gpu:
+    container_name: open-interpreter-gpu
+    build:
+      context: .
+      dockerfile: Dockerfile.gpu
+      args:
+        USER: ${USER}
+        USER_ID: 1010
+        GROUP_ID: 1010
+    depends_on:
+      - open-interpreter-xrdp
+    ports:
+      - 6079:6079
+      - 8000:8000
+    environment:
+      - USER=$USER
+      - PASSWD=your_password
+      - ANTHROPIC_API_KEY=your_api_key
+    tty: true
+    stdin_open: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]

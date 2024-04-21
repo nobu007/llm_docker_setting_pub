@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  desktop-vnc:
+    build:
+      context: .
+      dockerfile: Dockerfile.desktop
+      args:
+        USER: ${USER}
+        USER_ID: 1010
+        GROUP_ID: 1010
+        BASE_IMAGE: yama07/docker-ubuntu-lxde:22.04-vnc_ja
+    image: desktop_vnc
+    entrypoint: ["true"] # should not up service
+    
+  app-vnc:
+    container_name: app-vnc
+    build:
+      context: ../..
+      dockerfile: llm_docker_setting_pub/docker/Dockerfile
+      args:
+        USER: ${USER}
+        USER_ID: 1010
+        GROUP_ID: 1010
+        BASE_IMAGE: desktop_vnc
+    ports:
+      - 5900:5900
+      - 8080:80
+    environment:
+      - USER=$USER
+      - PASSWD=your_password
+      - ANTHROPIC_API_KEY=your_api_key
+    entrypoint: ["/app/entrypoint.sh"]
+    tty: true
+    stdin_open: true

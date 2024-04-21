@@ -1,0 +1,68 @@
+# ベースイメージを選択するためのパラメータ
+ARG BASE_IMAGE
+
+# パラメータに基づいてベースイメージを選択
+FROM ${BASE_IMAGE}
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# dev tools
+RUN apt update && apt install -y less vim emacs nano nkf tree git tmux zip cifs-utils fonts-noto-color-emoji curl wget sudo
+
+# VSCode
+RUN curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/microsoft-keyring.gpg] https://packages.microsoft.com/repos/vscode stable main" >/etc/apt/sources.list.d/vscode.list
+RUN apt update && apt install -y code
+
+# Firefox
+# https://launchpad.net/~mozillateam/+archive/ubuntu/ppa
+RUN apt remove -y firefox
+RUN curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x0AB215679C571D1C8325275B9BDB3D89CE49EC21' | gpg --dearmor -o /usr/share/keyrings/mozillateam-keyring.gpg && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/mozillateam-keyring.gpg] https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/ $(lsb_release -sc) main" >/etc/apt/sources.list.d/mozillateam.list
+RUN echo "Package: firefox*\nPin: release o=LP-PPA-mozillateam\nPin-Priority: 1001" >/etc/apt/preferences.d/mozilla-firefox
+RUN apt update && apt install -y firefox
+
+# Google Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN apt install -y ./google-chrome-stable_current_amd64.deb
+# RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+# RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >/etc/apt/sources.list.d/google-chrome.list
+
+# Set up Japanese environment
+RUN locale-gen ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+
+# for python3.9
+RUN apt update && apt install -y \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    locales \
+    language-pack-ja-base \
+    language-pack-ja \
+    ibus-mozc \
+    libssl-dev zlib1g-dev libbz2-dev \
+    libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev
+RUN apt install -y sudo
+
+# add user
+ARG USER
+ARG USER_ID
+ARG GROUP_ID
+ENV PASSWORD=$USER
+RUN groupadd -g $GROUP_ID $USER
+RUN adduser --uid $USER_ID --gid $GROUP_ID --disabled-password --gecos "" $USER && echo "$USER:$PASSWORD" | chpasswd && echo "$USER ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
+
+# install python3.9 on user
+USER $USER
+ENV HOME=/home/$USER
+RUN git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
+ENV PYENV_ROOT="${HOME}/.pyenv"
+ENV PATH="$PYENV_ROOT/bin:$PATH"
+RUN echo 'export PATH=$PATH:'"$PYENV_ROOT/bin" >>${HOME}/.bashrc
+RUN echo 'eval "$(pyenv init -)"' >>${HOME}/.bashrc
+RUN . ${HOME}/.bashrc
+RUN pyenv install 3.9
+RUN pyenv global 3.9

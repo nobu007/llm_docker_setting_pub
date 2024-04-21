@@ -1,0 +1,11 @@
+# ステージ1: nvidiaのライブラリが入ったシステム
+FROM nvidia/cuda:12.3.2-devel-ubuntu22.04 AS nvidia
+
+# ステージ2: Ubuntuのデスクトップ環境が入ったシステム
+FROM open_interpreter_docker_open-interpreter:latest
+
+# ステージ1からnvidiaのライブラリをコピー
+COPY --from=nvidia /usr/local/cuda /usr/local/cuda
+COPY --from=nvidia /usr/local/cuda-12.3 /usr/local/cuda-12.3
+
+ENTRYPOINT ["/app/entrypoint.sh"]

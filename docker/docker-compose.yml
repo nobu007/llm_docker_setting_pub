@@ -1,0 +1,77 @@
+version: "3"
+
+services:
+  envcheck:
+    image: busybox
+    user: "${MY_UID:?MY_UID not set. Please use script/docker_compose.sh}"
+
+  desktop-xrdp:
+    build:
+      context: .
+      dockerfile: Dockerfile.desktop
+      args:
+        USER: ${USER}
+        USER_ID: ${MY_UID}
+        GROUP_ID: ${MY_GID}
+        BASE_IMAGE: yama07/docker-ubuntu-lxde:22.04-xrdp_ja
+    image: desktop_xrdp
+    entrypoint: ["true"] # should not up service
+
+  app-xrdp:
+    container_name: app-xrdp
+    build:
+      context: ../..
+      dockerfile: llm_docker_setting_pub/docker/Dockerfile
+      args:
+        USER: ${USER}
+        USER_ID: ${MY_UID}
+        GROUP_ID: ${MY_GID}
+        BASE_IMAGE: desktop_xrdp
+        # file: AAA, dir: BBB/
+        # Should not set multiple files or dirs like "AAA BBB/"
+        INSTALL_RESOURCES_0: entrypoint.sh
+        INSTALL_RESOURCES_1: litellm/
+        INSTALL_RESOURCES_2: installers/
+        INSTALL_RESOURCES_3: requirements.txt
+        INSTALL_RESOURCES_4: llm_docker_setting_pub/
+        INSTALL_RESOURCES_5: others/
+        INSTALL_RESOURCES_6: ui/
+        INSTALL_RESOURCES_7: README.md
+        INSTALL_RESOURCES_8: pyproject.toml
+        INSTALL_RESOURCES_9: interpreter/
+        INSTALL_RESOURCES_10: GuiAgentLoopCore/
+        INSTALL_RESOURCES_11: README.md # dummy
+        INSTALL_RESOURCES_12: README.md # dummy
+        INSTALL_RESOURCES_13: README.md # dummy
+        INSTALL_RESOURCES_14: README.md # dummy
+        ENTRYPOINT_SCRIPT: entrypoint.sh
+        HEALTHCHECK_SCRIPT: healthcheck.sh
+    depends_on:
+      - desktop-xrdp
+    ports:
+      - 6079:6079
+      - 6080:6080
+      - 7860:7860
+      - 7861:7861
+      - 8000:8000
+      - 8001:8001
+    environment:
+      - USER=$USER
+      - PASSWD=your_password
+    healthcheck:
+      test: ["CMD-SHELL", "/app/healthcheck.sh"]
+      interval: 5s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - dbstore:/app/db
+      - ../../work:/app/work
+    entrypoint: ["/bin/bash", "--login"]
+    command: ["/app/healthcheck.sh"]
+    # command: ["/app/entrypoint.sh"]
+    tty: true
+    stdin_open: true
+
+volumes:
+  dbstore:
