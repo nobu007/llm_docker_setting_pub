@@ -29,16 +29,16 @@ services:
         BASE_IMAGE: desktop_xrdp
         # file: AAA, dir: BBB/
         # Should not set multiple files or dirs like "AAA BBB/"
-        INSTALL_RESOURCES_0: entrypoint.sh
-        INSTALL_RESOURCES_1: litellm/
-        INSTALL_RESOURCES_2: installers/
-        INSTALL_RESOURCES_3: requirements.txt
+        INSTALL_RESOURCES_0: requirements.txt
+        INSTALL_RESOURCES_1: README.md
+        INSTALL_RESOURCES_2: src/
+        INSTALL_RESOURCES_3: README.md # dummy
         INSTALL_RESOURCES_4: llm_docker_setting_pub/
-        INSTALL_RESOURCES_5: others/
-        INSTALL_RESOURCES_6: ui/
-        INSTALL_RESOURCES_7: README.md
+        INSTALL_RESOURCES_5: README.md # dummy
+        INSTALL_RESOURCES_6: README.md # dummy
+        INSTALL_RESOURCES_7: README.md # dummy
         INSTALL_RESOURCES_8: pyproject.toml
-        INSTALL_RESOURCES_9: interpreter/
+        INSTALL_RESOURCES_9: README.md # dummy
         INSTALL_RESOURCES_10: GuiAgentLoopCore/
         INSTALL_RESOURCES_11: README.md # dummy
         INSTALL_RESOURCES_12: README.md # dummy
