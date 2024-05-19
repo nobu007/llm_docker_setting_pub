@@ -40,7 +40,7 @@ services:
         INSTALL_RESOURCES_8: pyproject.toml
         INSTALL_RESOURCES_9: README.md # dummy
         INSTALL_RESOURCES_10: GuiAgentLoopCore/
-        INSTALL_RESOURCES_11: README.md # dummy
+        INSTALL_RESOURCES_11: langchain-google
         INSTALL_RESOURCES_12: README.md # dummy
         INSTALL_RESOURCES_13: README.md # dummy
         INSTALL_RESOURCES_14: README.md # dummy
