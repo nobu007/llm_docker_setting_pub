@@ -32,7 +32,7 @@ ENV LANG ja_JP.UTF-8
 ENV LANGUAGE ja_JP:ja
 ENV LC_ALL ja_JP.UTF-8
 
-# for python3.9
+# for python
 RUN apt update && apt install -y \
     python3 \
     python3-pip \
@@ -55,7 +55,7 @@ ENV PASSWORD=$USER
 RUN groupadd -g $GROUP_ID $USER
 RUN adduser --uid $USER_ID --gid $GROUP_ID --disabled-password --gecos "" $USER && echo "$USER:$PASSWORD" | chpasswd && echo "$USER ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
 
-# install python3.9 on user
+# install python3.11 on user
 USER $USER
 ENV HOME=/home/$USER
 RUN git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
@@ -64,5 +64,5 @@ ENV PATH="$PYENV_ROOT/bin:$PATH"
 RUN echo 'export PATH=$PATH:'"$PYENV_ROOT/bin" >>${HOME}/.bashrc
 RUN echo 'eval "$(pyenv init -)"' >>${HOME}/.bashrc
 RUN . ${HOME}/.bashrc
-RUN pyenv install 3.9
-RUN pyenv global 3.9
+RUN pyenv install 3.11
+RUN pyenv global 3.11
