@@ -75,3 +75,7 @@ services:
 
 volumes:
   dbstore:
+
+networks:
+  app-network:
+    driver: bridge
