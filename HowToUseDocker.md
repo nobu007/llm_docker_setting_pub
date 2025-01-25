@@ -12,7 +12,7 @@ sudo apt install docker-compose
 ```
 
 Please see.
-https://docs.docker.com/desktop/install/ubuntu/
+https://docs.docker.com/desktop/setup/install/linux/ubuntu/
 
 ## Setup
 
@@ -27,7 +27,7 @@ $ cd && git clone https://github.com/nobu007/open_interpreter_docker.git
 ### Docker build & run
 
 ```sh
-$ cd .../llm_docker_setting_pub
+$ cd ../llm_docker_setting_pub
 $ docker-compose up --build
 ```
 
