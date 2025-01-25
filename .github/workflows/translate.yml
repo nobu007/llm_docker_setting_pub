@@ -1,0 +1,23 @@
+name: Translate README
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  pull-requests: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run README AI Translator Action
+        uses: nobu007/readmeai_auto_action@v1
+        with:
+          repo: 'https://github.com/nobu007/llm_docker_setting_pub'  # 対象リポジトリのURL
+          language: 'ja'  # 生成する言語（例: ja, en）
+          exclude: 'node_modules,dist'  # 除外するファイルやディレクトリ
