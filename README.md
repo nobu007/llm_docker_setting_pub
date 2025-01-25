@@ -3,7 +3,7 @@
 </p>
 <p align="center"><h1 align="center">LLM_DOCKER_SETTING_PUB</h1></p>
 <p align="center">
-	<em><code>❯ REPLACE-ME</code></em>
+	<em><code>Deploy and manage LLM applications with ease</code></em>
 </p>
 <p align="center">
 	<!-- local repository, no metadata badges. --></p>
@@ -15,37 +15,40 @@
 </p>
 <br>
 
-##  Table of Contents
+## Table of Contents
 
-- [ Overview](#-overview)
-- [ Features](#-features)
-- [ Project Structure](#-project-structure)
-  - [ Project Index](#-project-index)
-- [ Getting Started](#-getting-started)
-  - [ Prerequisites](#-prerequisites)
-  - [ Installation](#-installation)
-  - [ Usage](#-usage)
-  - [ Testing](#-testing)
-- [ Project Roadmap](#-project-roadmap)
-- [ Contributing](#-contributing)
-- [ License](#-license)
-- [ Acknowledgments](#-acknowledgments)
-
----
-
-##  Overview
-
-llmdockersettingpub simplifies deploying and managing powerful large language model (LLM) applications.  It provides pre-configured Docker environments with GPU support, remote access, and automated setup, ensuring consistent development and deployment across different machines.  Ideal for developers and researchers working with LLMs, it streamlines the process, allowing them to focus on model development and application building.
+- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+	- [Project Index](#project-index)
+- [Getting Started](#getting-started)
+	- [Prerequisites](#prerequisites)
+	- [Installation](#installation)
+	- [Usage](#usage)
+	- [Testing](#testing)
+- [Project Roadmap](#project-roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
-##  Features
+## Overview
 
-<code>❯ REPLACE-ME</code>
+llmdockersettingpub simplifies deploying and managing powerful large language model (LLM) applications. It provides pre-configured Docker environments with GPU support, remote access, and automated setup, ensuring consistent development and deployment across different machines. Ideal for developers and researchers working with LLMs, it streamlines the process, allowing them to focus on model development and application building.
 
 ---
 
-##  Project Structure
+## Features
+
+- Pre-configured Docker environments with GPU support
+- Remote access capabilities
+- Automated setup for consistent development and deployment
+
+---
+
+## Project Structure
 
 ```sh
 └── llm_docker_setting_pub/
@@ -74,8 +77,8 @@ llmdockersettingpub simplifies deploying and managing powerful large language mo
     └── server.py.sample
 ```
 
+### Project Index
 
-###  Project Index
 <details open>
 	<summary><b><code>LLM_DOCKER_SETTING_PUB/</code></b></summary>
 	<details> <!-- __root__ Submodule -->
@@ -185,9 +188,10 @@ llmdockersettingpub simplifies deploying and managing powerful large language mo
 </details>
 
 ---
-##  Getting Started
 
-###  Prerequisites
+## Getting Started
+
+### Prerequisites
 
 Before getting started with llm_docker_setting_pub, ensure your runtime environment meets the following requirements:
 
@@ -195,32 +199,32 @@ Before getting started with llm_docker_setting_pub, ensure your runtime environm
 - **Package Manager:** Pip
 - **Container Runtime:** Docker
 
-
-###  Installation
+### Installation
 
 Install llm_docker_setting_pub using one of the following methods:
 
 **Build from source:**
 
 1. Clone the llm_docker_setting_pub repository:
+
 ```sh
 ❯ git clone ../llm_docker_setting_pub
 ```
 
 2. Navigate to the project directory:
+
 ```sh
 ❯ cd llm_docker_setting_pub
 ```
 
 3. Install the project dependencies:
 
-
 **Using `pip`** &nbsp; [<img align="center" src="" />]()
+❯ pip install -r config/requirements.txt
 
 ```sh
 ❯ echo 'INSERT-INSTALL-COMMAND-HERE'
 ```
-
 
 **Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
 
@@ -228,17 +232,15 @@ Install llm_docker_setting_pub using one of the following methods:
 ❯ docker build -t codeinterpreter_api_agent/llm_docker_setting_pub .
 ```
 
+### Usage
 
-
-
-###  Usage
 Run llm_docker_setting_pub using the following command:
 **Using `pip`** &nbsp; [<img align="center" src="" />]()
+❯ python server.py.sample
 
 ```sh
 ❯ echo 'INSERT-RUN-COMMAND-HERE'
 ```
-
 
 **Using `docker`** &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
 
@@ -246,26 +248,27 @@ Run llm_docker_setting_pub using the following command:
 ❯ docker run -it {image_name}
 ```
 
+### Testing
 
-###  Testing
 Run the test suite using the following command:
 **Using `pip`** &nbsp; [<img align="center" src="" />]()
+❯ pytest
 
 ```sh
 ❯ echo 'INSERT-TEST-COMMAND-HERE'
 ```
 
-
 ---
-##  Project Roadmap
 
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
+## Project Roadmap
+
+- [x] **`Task 1`**: <strike>Implement feature one.</strike>
 - [ ] **`Task 2`**: Implement feature two.
 - [ ] **`Task 3`**: Implement feature three.
 
 ---
 
-##  Contributing
+## Contributing
 
 - **💬 [Join the Discussions](https://LOCAL/codeinterpreter_api_agent/llm_docker_setting_pub/discussions)**: Share your insights, provide feedback, or ask questions.
 - **🐛 [Report Issues](https://LOCAL/codeinterpreter_api_agent/llm_docker_setting_pub/issues)**: Submit bugs found or log feature requests for the `llm_docker_setting_pub` project.
@@ -308,13 +311,13 @@ Run the test suite using the following command:
 
 ---
 
-##  License
+## License
 
 This project is protected under the [SELECT-A-LICENSE](https://choosealicense.com/licenses) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/) file.
 
 ---
 
-##  Acknowledgments
+## Acknowledgments
 
 - List any resources, contributors, inspiration, etc. here.
 
