@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run README AI Translator Action
-        uses: nobu007/readmeai_auto_action@v1.0.5
+        uses: nobu007/readmeai_auto_action@v1.0.6
         with:
           repo: 'https://github.com/nobu007/llm_docker_setting_pub'  # 対象リポジトリのURL
           language: 'ja'  # 生成する言語（例: ja, en）
