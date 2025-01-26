@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # get current directory
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 echo "CURRENT_DIR=$CURRENT_DIR"
 TOOL_TOP_DIR=$(cd ${CURRENT_DIR}/../.. && pwd)
 echo "TOOL_TOP_DIR=$TOOL_TOP_DIR"
-
 
 # UID, GID
 export MY_UID=$(id -u)
@@ -17,8 +16,7 @@ cd $TOOL_TOP_DIR
 scripts=()
 
 # Add install scripts
-for i in {0..14}
-do
+for i in {0..14}; do
     scripts+=("install_${i}.sh")
 done
 
@@ -29,11 +27,12 @@ scripts+=("install.sh")
 
 # Touch each script
 for script in "${scripts[@]}"; do
-    echo "touch $script"
-    touch "$script"
-    chmod +x "$script"
+    if [ ! -f "$script" ]; then
+        echo "touch $script"
+        touch "$script"
+        chmod +x "$script"
+    fi
 done
-
 
 cd $CURRENT_DIR/../docker
 docker-compose down && docker-compose up --build
