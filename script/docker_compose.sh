@@ -10,6 +10,11 @@ echo "TOOL_TOP_DIR=$TOOL_TOP_DIR"
 export MY_UID=$(id -u)
 export MY_GID=$(id -g)
 
+# Load environment variables from .env file in TOOL_TOP_DIR
+if [ -f "$TOOL_TOP_DIR/.env" ]; then
+    export $(grep -v '^#' $TOOL_TOP_DIR/.env | xargs)
+fi
+
 cd $TOOL_TOP_DIR
 
 # Create a list of scripts
