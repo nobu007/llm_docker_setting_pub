@@ -9,7 +9,7 @@ services:
         USER: ${USER}
         USER_ID: 1010
         GROUP_ID: 1010
-        BASE_IMAGE: yama07/docker-ubuntu-lxde:22.04-xrdp_ja
+        BASE_IMAGE: yama07/docker-ubuntu-lxde:24.04-xrdp_ja
     image: open_interpreter_docker_desktop_xrdp
     entrypoint: ["true"] # should not up service
 

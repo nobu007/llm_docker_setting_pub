@@ -7,13 +7,13 @@ services:
 
   desktop-xrdp:
     build:
-      context: .
-      dockerfile: Dockerfile.desktop
+      context: ../..
+      dockerfile: llm_docker_setting_pub/docker/step1_Dockerfile.desktop
       args:
         USER: ${USER}
         USER_ID: ${MY_UID}
         GROUP_ID: ${MY_GID}
-        BASE_IMAGE: yama07/docker-ubuntu-lxde:22.04-xrdp_ja
+        BASE_IMAGE: yama07/docker-ubuntu-lxde:24.04-xrdp_ja
     image: desktop_xrdp
     entrypoint: ["true"] # should not up service
 
@@ -21,7 +21,7 @@ services:
     container_name: app-xrdp
     build:
       context: ../..
-      dockerfile: llm_docker_setting_pub/docker/Dockerfile
+      dockerfile: llm_docker_setting_pub/docker/step2_Dockerfile
       args:
         USER: ${USER}
         USER_ID: ${MY_UID}
