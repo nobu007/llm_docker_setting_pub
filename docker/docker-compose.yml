@@ -15,6 +15,8 @@ services:
         GROUP_ID: ${MY_GID}
         BASE_IMAGE: yama07/docker-ubuntu-lxde:24.04-xrdp_ja
     image: desktop_xrdp
+    tty: true
+    stdin_open: true
     entrypoint: ["true"] # should not up service
 
   app-xrdp:
@@ -46,6 +48,7 @@ services:
         INSTALL_RESOURCES_14: ${INSTALL_RESOURCES_14:-README.md}
         ENTRYPOINT_SCRIPT: ${ENTRYPOINT_SCRIPT:-entrypoint.sh}
         HEALTHCHECK_SCRIPT: ${HEALTHCHECK_SCRIPT:-healthcheck.sh}
+    image: app_xrdp
     depends_on:
       - desktop-xrdp
     ports:
@@ -68,8 +71,8 @@ services:
       - dbstore:/app/db
       - ../../work:/app/work
     entrypoint: ["/bin/bash", "--login"]
-    command: ["/app/healthcheck.sh"]
-    # command: ["/app/entrypoint.sh"]
+    # command: ["/app/healthcheck.sh"]
+    command: ["/app/entrypoint.sh"]
     tty: true
     stdin_open: true
 

@@ -62,6 +62,7 @@ RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
 # install python3.11 on user
 USER $USER
 ENV HOME=/home/$USER
+WORKDIR $HOME
 RUN git clone https://github.com/pyenv/pyenv.git ${HOME}/.pyenv
 ENV PYENV_ROOT="${HOME}/.pyenv"
 ENV PATH="$PYENV_ROOT/bin:$PATH"
@@ -70,3 +71,6 @@ RUN echo 'eval "$(pyenv init -)"' >>${HOME}/.bashrc
 RUN . ${HOME}/.bashrc
 RUN pyenv install 3.11
 RUN pyenv global 3.11
+
+ENTRYPOINT ["/bin/bash", "--login"]
+CMD ["-i"]
