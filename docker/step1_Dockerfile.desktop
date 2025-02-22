@@ -52,8 +52,12 @@ ARG USER
 ARG USER_ID
 ARG GROUP_ID
 ENV PASSWORD=$USER
+RUN if id -u $USER_ID >/dev/null 2>&1; then userdel -r $(getent passwd $USER_ID | cut -d: -f1) || true; fi
+RUN if getent group $GROUP_ID >/dev/null 2>&1; then groupdel $(getent passwd $USER_ID | cut -d: -f1) || true; fi
 RUN groupadd -g $GROUP_ID $USER
-RUN adduser --uid $USER_ID --gid $GROUP_ID --disabled-password --gecos "" $USER && echo "$USER:$PASSWORD" | chpasswd && echo "$USER ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
+RUN adduser --uid $USER_ID --gid $GROUP_ID --disabled-password --gecos "" $USER
+RUN echo "$USER:$PASSWORD" | chpasswd
+RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
 
 # install python3.11 on user
 USER $USER
