@@ -49,6 +49,20 @@ services:
         ENTRYPOINT_SCRIPT: ${ENTRYPOINT_SCRIPT:-entrypoint.sh}
         HEALTHCHECK_SCRIPT: ${HEALTHCHECK_SCRIPT:-healthcheck.sh}
     image: app_xrdp
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - __pycache__/
+        - action: sync
+          path: ./background
+          target: /app/background
+          ignore:
+            - __pycache__/
+        - action: rebuild
+          path: pyproject.toml
     depends_on:
       - desktop-xrdp
     ports:

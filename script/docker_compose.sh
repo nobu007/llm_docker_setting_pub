@@ -40,4 +40,4 @@ for script in "${scripts[@]}"; do
 done
 
 cd $CURRENT_DIR/../docker
-docker-compose down && docker-compose up --build
+docker compose down && docker compose watch
